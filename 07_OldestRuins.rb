@@ -1,13 +1,15 @@
-n = 10
-$cordinates = [[9,4],[4,3],[1,1],[4,2],[2,4],[5,8],[4,0],[5,3],[0,5],[5,2]]
+n = gets.to_i
+$cordinates = []
 ans = 0
-
+n.times do 
+  $cordinates << gets.split().map(&:to_i)
+end
 
 $cordinates.sort!
 
 def search(target, ok, ng)
   while ng-ok > 1
-    mid = ok+ng / 2
+    mid = (ok+ng) / 2
     if [$cordinates[mid], target].sort[1] == target
       ok = mid
     else
@@ -17,9 +19,12 @@ def search(target, ok, ng)
   return $cordinates[ok] == target || $cordinates[ng] == target
 end
 
-$cordinates.each do |xi, yi|
-  $cordinates.each do |xj, yj|
-    next if xi == xj && yi == yj
+(0..n-1).each do |i|
+  (i+1..n-1).each do |j|
+    xi = $cordinates[i][0]
+    yi = $cordinates[i][1]
+    xj = $cordinates[j][0]
+    yj = $cordinates[j][1]
     q = [xi - yj + yi, yi + xj - xi]
     r = [xj - yj + yi, yj + xj - xi]
     if search(q, -1, n) && search(r, -1, n)
