@@ -1,0 +1,23 @@
+n, k = gets.split().map(&:to_i)
+a = gets.split().map(&:to_i)
+
+cost = 1000000000000
+
+[0, 1].repeated_permutation(n) do |bits|
+  next unless bits.count(1) == k
+  baseH = 0
+  sum = 0
+  bits.each_with_index do |bit, index|
+    next if bit == 0
+    baseH = a[0, index].max
+    if baseH < a[index]
+      baseH = a[index]
+    else
+      sum += baseH - a[index] + 1
+      baseH += 1
+    end
+  end
+  cost = [cost, sum].min
+end
+
+puts cost

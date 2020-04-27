@@ -1,5 +1,5 @@
-k = 2
-$queens = [[2,2], [5,3]]
+k = gets.to_i
+$queens = []
 $field = Array.new(8).map{Array.new(8, false)}
 ans = Array.new(8).map{Array.new(8, '.')}
 row = [*0..7]
@@ -7,7 +7,13 @@ column = [*0..7]
 $dx = [1,1,0,-1,-1,-1,0,1]
 $dy = [0,1,1,1,0,-1,-1,-1]
 
+
+k.times do
+  $queens << gets.split().map(&:to_i)
+end
+
 $queens.each do |r, c|
+  ans[r][c] = 'Q'
   column.delete(c)
   row.delete(r)
 end
@@ -55,6 +61,11 @@ column.permutation.to_a.each do |arrayX|
     exit
   end
 end
+
+
+
+
+
 
 
 
