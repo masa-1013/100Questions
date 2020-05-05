@@ -6,21 +6,22 @@ $ans = Array.new(n, 0)
 (n-1).times do
   a, b = gets.split().map(&:to_i)
   $graph[a-1] << b-1
-end
-
-def dfs(root, point)
-  $seen[root] = true
-  $ans[root] += point
-  $graph[root].each do |i|
-    next if $seen[i]
-    dfs(i, point) 
-  end
+  $graph[b-1] << a-1
 end
 
 q.times do 
-  $seen = []
   root, point = gets.split().map(&:to_i)
-  dfs(root-1, point)
+  $ans[root-1] += point
+end
+
+que=[0]
+while n=que.shift
+  $seen[n] = true
+  $graph[n].each do |to|
+    next if $seen[to]
+    $ans[to] += $ans[n]
+    que << to
+  end 
 end
 
 puts $ans.join(' ')
