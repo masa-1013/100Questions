@@ -1,10 +1,14 @@
-$w = 3
-$h = 3
-$sections = [[1, 1, 0], [1, 0, 1], [1, 1, 0]]
+$w = gets.to_i
+$h = gets.to_i
+$sections = Array.new($h)
 $seen = Array.new($h).map{Array.new($w, false)}
 $dx = [1, 0, -1, 0]
 $dy = [0, 1, 0, -1]
 $ans = 0
+
+$h.times do |i|
+  $sections[i] = gets.split().map(&:to_i)
+end
 
 def dfs(h, w, point)
   $seen[h][w] = true
